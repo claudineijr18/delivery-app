@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const { getDB } = require("../database/connection");
 const { logError } = require("../utils/logger");
 
@@ -46,7 +47,9 @@ class Cliente {
   static async deletar(id) {
     try {
       const db = getDB();
-      return await db.collection("clientes").deleteOne({ _id: id });
+      return await db.collection("clientes").deleteOne({
+        _id: new ObjectId(id)
+      });
     } catch (error) {
       logError(error);
       throw error;
