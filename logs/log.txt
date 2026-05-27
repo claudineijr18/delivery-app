@@ -1,1 +1,2 @@
 2026-04-28T14:23:46.834Z - Cannot read properties of undefined (reading 'collection')
+2026-05-27T17:40:20.791Z - Nome e email são obrigatórios

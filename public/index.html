@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Delivery App</title>
+</head>
+<body>
+  <h1>🍔 Delivery App</h1>
+
+  <h2>Login</h2>
+  <input id="emailLogin" placeholder="Email" value="admin@email.com">
+  <input id="senhaLogin" placeholder="Senha" value="123456">
+  <button onclick="login()">Entrar</button>
+
+  <hr>
+
+  <h2>Cadastrar Cliente</h2>
+  <input id="nomeCliente" placeholder="Nome">
+  <input id="emailCliente" placeholder="Email">
+  <input id="enderecoCliente" placeholder="Endereço">
+  <button onclick="criarCliente()">Cadastrar Cliente</button>
+
+  <h2>Clientes</h2>
+  <button onclick="listarClientes()">Listar Clientes</button>
+  <pre id="resultado"></pre>
+
+  <script>
+    async function login() {
+      const email = document.getElementById("emailLogin").value;
+      const senha = document.getElementById("senhaLogin").value;
+
+      const resposta = await fetch("/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, senha })
+      });
+
+      const dados = await resposta.json();
+      document.getElementById("resultado").textContent = JSON.stringify(dados, null, 2);
+    }
+
+    async function criarCliente() {
+      const nome = document.getElementById("nomeCliente").value;
+      const email = document.getElementById("emailCliente").value;
+      const endereco = document.getElementById("enderecoCliente").value;
+
+      const resposta = await fetch("/clientes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ nome, email, endereco })
+      });
+
+      const dados = await resposta.json();
+      document.getElementById("resultado").textContent = JSON.stringify(dados, null, 2);
+    }
+
+    async function listarClientes() {
+      const resposta = await fetch("/clientes");
+      const dados = await resposta.json();
+      document.getElementById("resultado").textContent = JSON.stringify(dados, null, 2);
+    }
+  </script>
+</body>
+</html>
